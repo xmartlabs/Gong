@@ -16,10 +16,10 @@ plugins {
 apply from: rootProject.file('scripts/versioning.gradle')
 apply from: rootProject.file('scripts/read_properties.gradle')
 
-if (getEnvVariable('KEYSTORE_FILE') != null) {
+//if (getEnvVariable('KEYSTORE_FILE') != null) {
     // Avoid Signing not ready issues in Gradle Play Publisher plugin
     apply from: rootProject.file('scripts/snapshot_publish.gradle')
-}
+//}
 
 // TODO: Enable when the services json is added
 // apply plugin: 'com.google.gms.google-services'
