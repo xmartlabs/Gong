@@ -1,13 +1,25 @@
 [versions]
 accompanist = "0.7.2-SNAPSHOT"
 androidSwissKnife = "44f27ec213"
+androidXAppCompat = "1.3.0-beta01"
+androidXBrowser = "1.2.0"
+androidXCardView = "1.0.0"
+androidXConstraintLayout = "2.0.4"
 androidXCore = "1.2.0"
 androidXDataStore = "1.0.0-alpha06"
+androidXLifecycle = "2.3.0"
+androidXMaterial = "1.3.0"
+androidXPercentLayout = "1.0.0"
 androidXRoom = "2.3.0"
 androidXTestEspresso = "3.3.0"
 androidXTestJunit = "1.1.2"
+androidXTransition = "1.4.0"
+androidXViewPager2 = "1.0.0"
+archLifecycle = "2.2.0"
 archNavigationArchComponent = "2.3.3"
+archWorkManager = '2.3.4'
 coil = "1.2.0"
+constraint_layout = "2.0.1"
 compose = "1.0.0-beta05"
 composeConstraintLayout = "1.0.0-alpha05"
 composeMaterial = "1.0.0-beta05"
@@ -15,15 +27,35 @@ composeNavigation = "1.0.0-alpha10"
 composeViewModel = "1.0.0-alpha04"
 dependencyUpdates = '0.38.0'
 detekt = "1.16.0"
-retrofit = "2.9.0"
+firebase_crashlyticsPlugin = '2.5.2'
+firebase_analytics = "17.4.1"
+firebase_config = "19.1.3"
+firebase_crashlytics = "17.4.0"
+firebase_messaging = "20.1.6"
 googleServices = "4.3.5"
-okhttp = "4.9.1"
+androidGradle = "7.0.0-alpha14"
+gson = "2.8.6"
+junit = "4.13.2"
 koin = "3.0.1"
 kotlin = "1.4.32"
 kotlinCoroutines = "1.4.3"
+leakcanary = "2.7"
+lottie = "3.4.0"
+ok2CurlInterceptor = "0.7.0"
+okhttp = "4.9.1"
 okhttp3 = "4.9.1"
+okIo = "2.10.0"
 once = "1.3.0"
+recyclerDragSelect = "53d66e0eb5"
+recyclerView = "1.1.0"
+retrofit = "2.9.0"
 retrofit2 = "2.9.0"
+rxAndroid = "2.1.1"
+rxKotlin = "2.4.0"
+snapshotPublisher = "2.2.0"
+stetho = "1b2c025a14"
+timber = "4.7.1"
+tooLargeTool = "915ad99e83"
 
 
 [libraries]
@@ -31,6 +63,26 @@ accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version
 accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
 accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
+
+androidX-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidXAppCompat" }
+androidX-browser = { module = "androidx.browser:browser", version.ref = "androidXBrowser" }
+androidX-cardView = { module = "androidx.cardview:cardview", version.ref = "androidXCardView" }
+androidX-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraint_layout" }
+androidX-design = { module = "com.google.android.material:material", version.ref = "androidXMaterial"}
+androidX-percentLayout = { module = "androidx.percentlayout:percentlayout", version.ref = "androidXPercentLayout"}
+androidX-transition = { module = "androidx.transition:transition", version.ref = "androidXTransition"}
+androidX-viewPager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "androidXViewPager2"}
+
+androidXRoom-compiler = { module = "androidx.room:room-compiler", version.ref = "androidXRoom"}
+androidXRoom-coreKtx = { module = "androidx.room:room-ktx", version.ref = "androidXRoom"}
+
+androidX-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidXLifecycle"}
+androidX-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidXLifecycle"}
+androidX-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidXLifecycle"}
+androidX-saveState = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidXLifecycle"}
+
+androidX-testEspresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidXTestEspresso"}
+androidX-testJunit = { module = "androidx.test.ext:junit", version.ref = "androidXTestJunit"}
 
 android-gradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha14"
 
@@ -84,3 +136,10 @@ store = "com.dropbox.mobile.store:store4:4.0.0"
 timber = "com.jakewharton.timber:timber:4.7.1"
 
 truth = "com.google.truth:truth:1.1.2"
+
+[bundles]
+androidX = ["androidX-appCompat", "androidX-browser", "androidX-cardView", "androidX-constraintLayout",
+    "androidX-design", "androidX-percentLayout", "androidX-transition", "androidX-viewPager2"]
+androidXTest = ["androidX-testEspresso", "androidX-testJunit"]
+androidXLifecycle = ["androidX-livedata", "androidX-runtime", "androidX-viewmodel", "androidX-saveState"]
+androidXRoom = ["androidXRoom-compiler", "androidXRoom-coreKtx"]

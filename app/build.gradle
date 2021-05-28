@@ -128,14 +128,14 @@ android {
 }
 
 dependencies {
-    androidTestImplementation deps.androidX.test.junit
-    androidTestImplementation deps.androidX.test.espresso
-
     debugImplementation deps.leakcanary
 
     implementation libs.swissKnife.core
     implementation libs.swissKnife.dataStore
-    implementation deps.androidX.room.coreKtx
+    implementation libs.bundles.androidX
+    implementation libs.bundles.androidXTest
+    implementation libs.bundles.androidXLifecycle
+    implementation libs.bundles.androidXRoom
     implementation deps.coil
     implementation deps.compose.compiler
     implementation deps.compose.constraintLayout
@@ -162,7 +162,7 @@ dependencies {
     implementation deps.stetho
     implementation deps.timber
 
-    kapt deps.androidX.room.compiler
+    kapt libs.androidXRoom.compiler
 
     testImplementation deps.junit
 }
