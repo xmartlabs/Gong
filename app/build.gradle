@@ -128,41 +128,22 @@ android {
 }
 
 dependencies {
-    androidTestImplementation deps.androidX.test.junit
-    androidTestImplementation deps.androidX.test.espresso
+    androidTestImplementation libs.bundles.androidXTest
 
-    debugImplementation deps.leakcanary
+    debugImplementation libs.leakcanary
 
-    implementation deps.androidSwissKnife.core
-    implementation deps.androidSwissKnife.dataStore
-    implementation deps.androidX.room.coreKtx
-    implementation deps.coil
-    implementation deps.compose.compiler
-    implementation deps.compose.constraintLayout
-    implementation deps.compose.foundation
-    implementation deps.compose.navigation
-    implementation deps.compose.material
-    implementation deps.compose.runtime
-    implementation deps.compose.tooling
-    implementation deps.compose.ui
-    implementation deps.compose.viewModel
-    implementation deps.firebase.crashlytics
-    implementation deps.koin.compose
-    implementation deps.kotlin.core
-    implementation deps.kotlin.coroutines.core
-    implementation deps.okIo
-    implementation deps.okhttp3.core
-    implementation deps.okhttp3.loggingIntercepror
-    implementation deps.okhttp3.ok2CurlInterceptor
-    implementation deps.okhttp3.stetho
-    implementation deps.okhttp3.urlconnection
-    implementation deps.once
-    implementation deps.retrofit2.core
-    implementation deps.retrofit2.gsonAdapter
-    implementation deps.stetho
-    implementation deps.timber
+    implementation libs.androidXRoom.coreKtx
+    implementation libs.firebase.crashlytics
+    implementation libs.koin.compose
 
-    kapt deps.androidX.room.compiler
+    implementation libs.bundles.androidSwissKnife
+    implementation libs.bundles.compose
+    implementation libs.bundles.utils
+    implementation libs.bundles.kotlin
+    implementation libs.bundles.okHttp
+    implementation libs.bundles.okHttpDebug
 
-    testImplementation deps.junit
+    kapt libs.androidXRoom.compiler
+
+    testImplementation libs.junit
 }
