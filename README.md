@@ -10,27 +10,51 @@ One of the main objectives of this project is to supply a good starting point fo
 We're using "clean architecture" to structure, decouple, expand, and maintain the code.
 
 ## Architecture
-The architecture is based on the **Model-View-ViewModel (MVVM)** Pattern where there are 4 layers within the application:
+There are 4 layers within the application:
 - Domain layer - contains high-level abstraction of the application domain (like repositories, data access) and the use cases, which contain all of the application's business logic & domain rules.
 - Data layer - implements domain layer abstractions, the `DataSources`, related to data persistence, REST calls, etc. 
 - Device layer - implements domain layer abstractions that are not related to data persistence or user interface but are specific to the android platform: android services, cloud messaging, and many others.
-- Presentation (UI) layer - all the functionality related to the Android user interface: activities, fragments, views
+- Presentation (UI) layer - all the functionality related to the Android user interface: Composables.
 
 <p align="center">
   <img height="250" src="/images/arch.png" >
 </p>
 
-The core libraries for the communication between layer components are: [**LiveData**](https://developer.android.com/topic/libraries/architecture/livedata), used to notify the UI changes and [**Coroutines**](https://kotlinlang.org/docs/reference/coroutines-overview.html), used to perform all background tasks.
+## Overview
+In order to understand how all this work together, it's important to talk about each component role inside presentation layer.
+
+First of all, the architecture used is MVI, but in many ways it's a merging of MVI and Redux.
+The MVI pattern pre-defines a selection of events the ViewModel handles and the view publishes a stream of these events as they happen, so the viewModel can communicate back to the view with a single object defining the entire state of the view.
+The Redux pattern comes up at this point. Redux is a pattern and library for managing and updating application state, using events called "actions". In gong the composables communicate actions to the viewModels so they can manage and emit the state back to view. This ensure state can only be updated in a predictable way.
+
+To continue with the insight of the project, let's see how this is done.
+With the shared flow, actions are broadcast to an unknown number (zero or more) of subscribers. In the absence of a subscriber, any posted action is immediately dropped. It is a design pattern to use for actions that must be processed immediately or not at all.
+The viewModel handle each action in the processAction method. Whenever an action is added to the "contract", it also has to be added here. So all actions can be managed from the same place.
+With the channel, each event is delivered to a single subscriber. An attempt to post an event without subscribers will suspend as soon as the channel buffer becomes full, waiting for a subscriber to appear. Posted events are never dropped by default.
+Finally, for handling UiState, StateFlow is used. StateFlow is just like LiveData but have initial value. So a state is always present. It's also a kind of SharedFlow. It's always expected to receive last view state when UI become visible.
+
 
 <p align="center">
-  <img src="/images/layers.png">
+  <img src="/images/GongMainV2Arq.png">
 </p>
+
+
+Now, as a way to give you an overview of the other layers and how the interaction with the presentation layer is done, let's review it's components.
+
+To the presentation layer, the useCases are the ones who resolve each request from the UI, and they both interact using coroutine library.
+A useCase is a reusable component that might be used from different VMs. Same goes for Repositories, a repository can stand on its own without the vm and be re-used from other places. All these classes exist with a clear goal and purpose. The logic is split sensibly.
+Repositories have the function of communication between Domain Layer and Data Layer. More precisely, with coroutines help, they have to implement the necessary logic so they can call Remote and Local sources methods.
+
+At the end of the chain, as mentioned, Data Layer is found. It is responsible for persisting and obtaining all the data required for the model. The remote sources are the ones who manage interaction with the different endpoints.
+The local sources manage data base logic.
+
+The core libraries for the communication between layer components are: [**StateFlow**](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow), used to communicate data view state back to the view and [**Coroutines**](https://kotlinlang.org/docs/reference/coroutines-overview.html), used to perform all background tasks.
 
 ## Core Libraries
 The main libraries that we are using are:
 - [Android Architecture Components - Jetpack](https://developer.android.com/topic/libraries/architecture):
-  - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) which provides data objects that notify views when the underlying database changes.
-  - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) which stores UI-related data that isn't destroyed upon app rotation.
+  - [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow) which is a state-holder observable flow that emits the current and new state updates to its collectors.
+  - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) which allows you navigate between composables while taking advantage of the Navigation component’s infrastructure and features.
   - [Android Navigation Component](https://developer.android.com/guide/navigation) used to navigate across different pieces of content within your app.
   - [Room](https://developer.android.com/topic/libraries/architecture/room), a SQLite object mapping library.
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) for asynchronous programming
